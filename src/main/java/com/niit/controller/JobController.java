@@ -28,13 +28,13 @@ public ResponseEntity<?> saveJob(@RequestBody Job job,HttpSession session){
 	System.out.println("hi..");
      User user=(User)session.getAttribute("user");
      System.out.println("hello");
-     /*if(user==null){
+     if(user==null){
     	 
      Error error=new Error(3,"Unauthorized user");
      
      return new ResponseEntity<Error>(error,HttpStatus.UNAUTHORIZED);
 }
-else{*/
+else{
      String role=user.getRole();
      System.out.println("how r u");
      if(role.equals("Admin")){
@@ -52,7 +52,7 @@ else{
      return new ResponseEntity<Error>(error,HttpStatus.UNAUTHORIZED);
 }
 }
-
+}
 @RequestMapping(value="/getAllJobs",method=RequestMethod.GET)
 public ResponseEntity<?> getAllJobs(HttpSession session){
       User user=(User)session.getAttribute("user");
