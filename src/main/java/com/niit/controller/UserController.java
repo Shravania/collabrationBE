@@ -61,7 +61,7 @@ public class UserController {
 			
 		}
 		else{
-			user=userDAO.getUser(user.getId());
+			user=userDAO.getUser(user.getUserid());
 			user.setOnline(false);
 			userDAO.updateUser(user);
 			session.removeAttribute("user");
@@ -78,7 +78,7 @@ public class UserController {
 		
 	}
 	else{
-		userDAO.getUser(user.getId());
+		userDAO.getUser(user.getUserid());
 		return new ResponseEntity<User>(user,HttpStatus.OK);
 	}
 }

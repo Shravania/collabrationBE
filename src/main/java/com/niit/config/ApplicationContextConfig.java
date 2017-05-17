@@ -15,7 +15,12 @@ import org.springframework.orm.hibernate4.LocalSessionFactoryBuilder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.niit.model.BlogComment;
+import com.niit.model.BlogPost;
+import com.niit.model.Chat;
+import com.niit.model.Friend;
 import com.niit.model.Job;
+import com.niit.model.ProfilePicture;
 //import com.niit.model.ProfilePicture;
 import com.niit.model.User;
 
@@ -51,7 +56,7 @@ public class ApplicationContextConfig {
 		Properties properties = new Properties();
 		properties.put("hibernate.show_sql", "true");
 		properties.put("hibernate.dialect", "org.hibernate.dialect.Oracle10gDialect");
-		properties.put("hibernate.hbm2ddl.auto", "	update");
+		properties.put("hibernate.hbm2ddl.auto", "update");
 		return properties;
 	}
 
@@ -62,7 +67,12 @@ public class ApplicationContextConfig {
 		sessionBuilder.addProperties(getHibernateProperties());
 		sessionBuilder.addAnnotatedClass(User.class);
 		sessionBuilder.addAnnotatedClass(Error.class);
+		sessionBuilder.addAnnotatedClass(ProfilePicture.class);	
 	    sessionBuilder.addAnnotatedClass(Job.class);
+	    sessionBuilder.addAnnotatedClass(BlogComment.class);
+	    sessionBuilder.addAnnotatedClass(BlogPost.class);
+	    sessionBuilder.addAnnotatedClass(Friend.class);
+	    sessionBuilder.addAnnotatedClass(Chat.class);
 		
 		
 		System.out.println("Database connected");

@@ -1,4 +1,4 @@
-/*package com.niit.model;
+package com.niit.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -9,9 +9,9 @@ import javax.persistence.Table;
 @Table(name="profile_pic_batch15")
 public class ProfilePicture {
 	@Id
-	private String username;
+private String username;
 	@Lob
-	private byte[] image;
+private byte[] image;
 	public String getUsername() {
 		return username;
 	}
@@ -24,6 +24,5 @@ public class ProfilePicture {
 	public void setImage(byte[] image) {
 		this.image = image;
 	}
-
+	
 }
-*/

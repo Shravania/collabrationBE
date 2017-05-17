@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
+import org.springframework.stereotype.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,28 +24,19 @@ import com.niit.model.Error;
 public class JobController {
 @Autowired
 private JobDAO jobDAO;
-@RequestMapping(value="/addJob",method=RequestMethod.POST)
+@RequestMapping(value="/saveJob",method=RequestMethod.POST)
 public ResponseEntity<?> saveJob(@RequestBody Job job,HttpSession session){
-	System.out.println("hi..");
-     User user=(User)session.getAttribute("user");
-     System.out.println("hello");
+	 User user=(User)session.getAttribute("user");
      if(user==null){
-    	 
      Error error=new Error(3,"Unauthorized user");
-     
      return new ResponseEntity<Error>(error,HttpStatus.UNAUTHORIZED);
 }
 else{
      String role=user.getRole();
-     System.out.println("how r u");
      if(role.equals("Admin")){
-    	 System.out.println("i am meeting");
      job.setPostedOn(new Date());
-     System.out.println("c u later");
      job.setActive(true);
-     System.out.println("bye");
      jobDAO.saveJobDetails(job);
-     System.out.println("call u back");
      return new ResponseEntity<Void>(HttpStatus.OK);
 }
 else{
@@ -63,15 +55,23 @@ public ResponseEntity<?> getAllJobs(HttpSession session){
       List<Job> jobs=jobDAO.getAllJobDetails();
       return new ResponseEntity<List<Job>>(jobs,HttpStatus.OK);
 }
+/*
+@RequestMapping(value = "/getAllJobs", method = RequestMethod.GET)
+public ResponseEntity<List<Job>> getAllOpenedJobs() {
+	
+	List<Job> jobs = jobDAO.getAllJobDetails();
+	
+	return new ResponseEntity<List<Job>>(jobs, HttpStatus.OK);
 
-@RequestMapping(value="/getJob/{id}",method=RequestMethod.GET)
-public ResponseEntity<?> getJobById(@PathVariable int id,HttpSession session){
+}*/
+@RequestMapping(value="/getJob/{jobid}",method=RequestMethod.GET)
+public ResponseEntity<?> getJobById(@PathVariable int jobid,HttpSession session){
        User user=(User)session.getAttribute("user");
      if(user==null){
      Error error=new Error(3,"Unauthorized user");
      return new ResponseEntity<Error>(error,HttpStatus.UNAUTHORIZED);
 }
-Job job=jobDAO.getJobById(id);
+Job job=jobDAO.getJobById(jobid);
 return new ResponseEntity<Job>(job,HttpStatus.OK);
 }
 

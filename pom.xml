@@ -7,6 +7,11 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>CollabrationBackEnd Maven Webapp</name>
   <url>http://maven.apache.org</url>
+  <properties>
+<springframework.version>4.2.0.RELEASE</springframework.version>
+<jackson.version>2.5.3</jackson.version>
+</properties>
+  
   <dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -142,7 +147,6 @@
 			<artifactId>jackson-mapper-asl</artifactId>
 			<version>1.9.13</version>
 		</dependency>
-
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
@@ -166,6 +170,7 @@
 			<artifactId>javax.websocket-api</artifactId>
 			<version>1.1</version>
 		</dependency>
+		
 	</dependencies>
   <build>
     <finalName>CollabrationBackEnd</finalName>

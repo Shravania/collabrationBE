@@ -1,4 +1,5 @@
-/*package com.niit.controller;
+
+package com.niit.controller;
 
 import javax.servlet.http.HttpSession;
 
@@ -21,37 +22,39 @@ import com.niit.model.Error;
 @RestController
 public class FileUploadController {
 	@Autowired
-private ProfileUploadDAO profileUploadDAO;
-@RequestMapping(value="/doUpload",method=RequestMethod.POST)
-public ResponseEntity<?> uploadProfilePic(HttpSession session,@RequestParam CommonsMultipartFile fileupload){
- User user=(User) session.getAttribute("user");
-if(user==null){
-	Error error=new Error(3,"Unauthorized user..please log in");
-	return new ResponseEntity<Error>(error,HttpStatus.UNAUTHORIZED);
+	private ProfileUploadDAO profileUploadDAO;
+	@RequestMapping(value="/doUpload",method=RequestMethod.POST)
+public ResponseEntity<?> uploadProfilePic(
+		HttpSession session,@RequestParam CommonsMultipartFile fileUpload){
+		User user=(User)session.getAttribute("user");
+		if(user==null){
+			Error error=new Error(3,"Unauthorized user.. Please login");
+			return new ResponseEntity<Error>(error,HttpStatus.UNAUTHORIZED);
+		}
+		else{
+			ProfilePicture profilePicture=new ProfilePicture();
+			profilePicture.setUsername(user.getUsername());
+			profilePicture.setImage(fileUpload.getBytes());
+			profileUploadDAO.save(profilePicture);
+			return new ResponseEntity<User>(user,HttpStatus.OK);
+		}
 	
 }
-else{
-	ProfilePicture  profilePicture=new ProfilePicture();
-	profilePicture.setUsername(user.getUsername());
-	profilePicture.setImage(fileupload.getBytes());
-	profileUploadDAO.save(profilePicture);
-	return new ResponseEntity<User>(user,HttpStatus.OK);
-	
+	@RequestMapping(value="/getimage/{username}", method=RequestMethod.GET)
+	public @ResponseBody byte[] getProfilePic(@PathVariable String username,HttpSession session){
+		User user=(User)session.getAttribute("user");
+		if(user==null)
+			return null;
+		else
+		{
+			ProfilePicture profilePic=profileUploadDAO.getProfilePic(username);
+			if(profilePic==null)
+				return null;
+			else
+				return profilePic.getImage();
+		}
+		
+		
+		
+	}
 }
-}
-
-@RequestMapping(value="/getimage/{username",method=RequestMethod.GET)
-@ResponseBody byte[] getProfilePic(@PathVariable String username,HttpSession session){
-User user=(User)session.getAttribute("user");
-if(user==null)
-	return null;
-else{
-	ProfilePicture profilePic=profileUploadDAO.getProfilePic(username);
-	if(profilePic==null)
-		return null;
-	else
-		return profilePic.getImage();
-}
-}
-}
-*/

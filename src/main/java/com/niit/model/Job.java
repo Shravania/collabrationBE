@@ -12,11 +12,11 @@ import javax.persistence.Table;
 import org.springframework.stereotype.Component;
 @Component
 @Entity
-@Table(name="job_batch15")
+@Table(name="Job_batch15")
 public class Job {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
+	private int jobid;
 	private String jobTitle;
 	private String jobDescription;
 	private String location;
@@ -24,15 +24,15 @@ public class Job {
 	private String company;
 	private Date postedOn;
 	private String skillsRequired;
-	@Column (name="is active")
+	@Column (name="is_active")
 	private boolean active;
 	
  
-	public int getId() {
-		return id;
+	public int getJobid() {
+		return jobid;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setJobid(int jobid) {
+		this.jobid = jobid;
 	}
 	public String getJobTitle() {
 		return jobTitle;
